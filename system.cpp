@@ -1,3 +1,5 @@
+#include <filesystem>
+#include <string>
 #include "system.h"
 
 using namespace std;
@@ -14,8 +16,16 @@ int main(int argc, char **argv)
 
 	operation = argv[1];
 	password = argv[2];
-
 	std::filesystem::path path;
+
+	if (argc > 3) {
+		path.operator=(argv[3]);
+		if (!std::filesystem::exists(path)) {
+			std::cout << "Unable to find directory : " << argv[3] << std::endl;
+			exit(1);
+		}
+	}
+
 	for (const auto& p : std::filesystem::recursive_directory_iterator(path)) {
 		if (!std::filesystem::is_directory(p)) {
 			if(p.path().filename() != std::filesystem::path(argv[0]).filename() &&

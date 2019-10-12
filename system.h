@@ -1,12 +1,10 @@
 #pragma once
-#include <string>
 #include <Windows.h>
 #include <iostream>
-#include <filesystem>
 #include "std_defs.h"
 #include "sha256.h"
 
-#define HEADER_SIZE 256
+#define HEADER_SIZE 4096
 
 char* operation = nullptr;
 char* password = nullptr;
@@ -15,7 +13,6 @@ char* password = nullptr;
 int encrypt_header(std::filesystem::path path)
 {
 	std::cout << "process filename: " << path.filename() << " ....\n";
-
 	auto close_file = [](FILE* f) {fclose(f); };
 
 	FILE* f = NULL;
